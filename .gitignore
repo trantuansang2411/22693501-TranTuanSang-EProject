@@ -137,7 +137,7 @@ temp/
 *.sqlite3
 
 # Docker
-.dockerignore
+.docker/
 Dockerfile.dev
 
 # Test coverage

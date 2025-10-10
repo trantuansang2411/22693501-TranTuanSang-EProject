@@ -5,7 +5,7 @@ function isAuthenticated(req, res, next) {
   // Check for the presence of an authorization header
   const authHeader = req.headers.authorization;
   if (!authHeader) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: 'Unauthorizedd' });
   }
 
   // Extract the token from the header
