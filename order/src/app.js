@@ -26,49 +26,33 @@ class App {
 
   async setupOrderConsumer() {
     console.log("Connecting to RabbitMQ...");
-  
+
     setTimeout(async () => {
       try {
-        const amqpServer = "amqp://localhost:5672";
-        const connection = await amqp.connect(amqpServer);
+        //const amqpServer = "amqp://rabbitmq:5672";
+        const connection = await amqp.connect(config.rabbitMQURI);
         console.log("Connected to RabbitMQ");
         const channel = await connection.createChannel();
         await channel.assertQueue("orders");
-  
+
         channel.consume("orders", async (data) => {
           // Consume messages from the order queue on buy
           console.log("Consuming ORDER service");
-          const messageData = JSON.parse(data.content);
-          console.log("Received message:", messageData); // Debug log
-          console.log("Products array:", messageData.products); // Debug products
-          const { products, username, orderId } = messageData;
-          console.log("Username from message:", username); // Debug log
-          
-          // Debug: Check if products have price property
-          if (products && products.length > 0) {
-            console.log("First product:", products[0]);
-            console.log("Product prices:", products.map(p => p.price));
-          }
-  
-          const calculatedTotal = products.reduce((acc, product) => {
-            console.log(`Adding product price: ${product.price}, current total: ${acc}`);
-            return acc + (product.price || 0);
-          }, 0);
-          console.log("Calculated total price:", calculatedTotal);
-  
+          const { products, username, orderId } = JSON.parse(data.content);
+
           const newOrder = new Order({
             products,
             user: username,
-            totalPrice: calculatedTotal
+            totalPrice: products.reduce((acc, product) => acc + product.price, 0),
           });
-  
+
           // Save order to DB
           await newOrder.save();
-  
+
           // Send ACK to ORDER service
           channel.ack(data);
           console.log("Order saved to DB and ACK sent to ORDER queue");
-  
+
           // Send fulfilled order to PRODUCTS service
           // Include orderId in the message
           const { user, products: savedProducts, totalPrice } = newOrder.toJSON();

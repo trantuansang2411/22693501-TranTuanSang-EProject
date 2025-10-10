@@ -2,13 +2,10 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
   products: [{
-    type: mongoose.Schema.Types.Mixed,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'products',
     required: true,
   }],
-  user: {
-    type: String,
-    required: true,
-  },
   totalPrice: {
     type: Number,
     required: true,

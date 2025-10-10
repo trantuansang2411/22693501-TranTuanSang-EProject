@@ -47,9 +47,6 @@ class ProductController {
       const products = await Product.find({ _id: { $in: ids } });
   
       const orderId = uuid.v4(); // Generate a unique order ID
-      console.log("User from token:", req.user); // Debug log
-      console.log("Username:", req.user.username); // Debug log
-      
       this.ordersMap.set(orderId, { 
         status: "pending", 
         products, 

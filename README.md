@@ -56,22 +56,15 @@ cd api-gateway && npm install && cd ..
 Tạo file `.env` trong thư mục gốc:
 ```env
 # Database
-MONGODB_AUTH_URI=mongodb://localhost:27017/auth
-MONGODB_PRODUCT_URI=mongodb://localhost:27017/products
-MONGODB_ORDER_URI=mongodb://localhost:27017/orders
+MONGODB_AUTH_URI=
+MONGODB_PRODUCT_URI=
+MONGODB_ORDER_URI=
 
 # JWT
 JWT_SECRET=your_jwt_secret_key
 
 # RabbitMQ
-RABBITMQ_URI=amqp://localhost:5672
-
-# Ports (optional)
-AUTH_PORT=3000
-PRODUCT_PORT=3001
-ORDER_PORT=3002
-GATEWAY_PORT=3003
-```
+RABBITMQ_URI=
 
 ### 4. Khởi động services
 
@@ -223,63 +216,3 @@ cd product && npm test
 
 6. **Xem danh sách sản phẩm**
    ![Hiển thị sản phẩm](img/image6.png)
-
-### Environment Variables cho Postman
-```json
-{
-  "auth_url": "http://localhost:3000",
-  "product_url": "http://localhost:3001", 
-  "gateway_url": "http://localhost:3003",
-  "jwt_token": "{{token_from_login}}"
-}
-```
-
-## 🛠️ Troubleshooting
-
-### Common Issues
-
-1. **MongoDB Connection Error**
-   - Đảm bảo MongoDB đang chạy
-   - Kiểm tra connection string trong config
-
-2. **RabbitMQ Connection Error**
-   - Cài đặt và khởi động RabbitMQ
-   - Default: `amqp://localhost:5672`
-
-3. **Port Already in Use**
-   - Kiểm tra processes đang chạy: `netstat -ano | findstr :3000`
-   - Kill process hoặc đổi port trong config
-
-4. **JWT Token Invalid**
-   - Đảm bảo JWT_SECRET khớp giữa các services
-   - Token phải được gửi với format: `Bearer <token>`
-
-### Health Check Commands
-```bash
-# Check if services are running
-curl http://localhost:3000/dashboard
-curl http://localhost:3001/api/products
-curl http://localhost:3003/auth/dashboard
-```
-
-## 🤝 Contributing
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)  
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the ISC License.
-
-## 👥 Authors
-
-- **Thai Van Son** - 22665311
-
----
-
-## 📞 Support
-
-Nếu gặp vấn đề, vui lòng tạo issue trên GitHub repository.

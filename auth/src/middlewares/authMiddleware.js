@@ -6,15 +6,7 @@ const config = require("../config");
  */
 
 module.exports = function(req, res, next) {
-  // Check both x-auth-token and Authorization header for compatibility
-  let token = req.header("x-auth-token");
-  // If no x-auth-token, check Authorization header (Bearer token)
-  if (!token) {
-    const authHeader = req.headers.authorization;
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-      token = authHeader.split(" ")[1];
-    }
-  }
+  const token = req.header("x-auth-token");
 
   if (!token) {
     return res.status(401).json({ message: "No token, authorization denied" });
