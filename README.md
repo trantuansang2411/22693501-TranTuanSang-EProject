@@ -24,7 +24,7 @@ EProject-Phase-1/
 | **API Gateway** | 3003 | - | Proxy requests to các microservices |
 | **Auth Service** | 3000 | MongoDB (auth) | Quản lý đăng ký, đăng nhập, JWT tokens |
 | **Product Service** | 3001 | MongoDB (products) | Quản lý sản phẩm, xử lý đơn hàng |
-| **Order Service** | 3002 | MongoDB (orders) | Xử lý và lưu trữ đơn hàng |
+| **Order Service** | 3002 | MongoDB (orders) | Xử lý và lưu trữ đơn hàng | abc
 
 ## 🚀 Cài đặt và chạy dự án
 
